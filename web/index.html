@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Web Site Title -->
+        <title>TAMAGOTCHI</title>
+
+        <!-- Web Site Icon -->
+        <link rel="icon" href="img/tamagotchi.png">
+
+        <!-- Load css styles-->
+        <link href="css/styles.css" rel="stylesheet" type="text/css">
+
+        <!-- Google Font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Press+Start+2P&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <h1>TAMAGOTCHI</h1>
+            <p>Each form has a different functionality, depending on the actions we want to perform on our Tamagotchi.</p>
+        </header>
+        <main>
+            <div>
+                <!-- Type 1: User identification PDU -->
+                <form action="http://localhost:3000/Tamagotchi" method="get">
+                    <fieldset>
+                        <legend>User identification</legend>
+                        <input type="hidden" name="type" value="ID_REQ">
+                        <label for="id1">User identifier</label>
+                        <input type="text" id="id1" name="id" placeholder="User identifier" required>
+                        <label for="pass">User password</label>
+                        <input type="text" id="pass" name="pass" placeholder="User password" required>
+                        <input type="submit" value="Send Identification PDU">
+                    </fieldset>
+                </form>
+
+                <!-- Type 2: Process Log PDU -->
+                <form action="http://localhost:3000/Tamagotchi" method="get">
+                    <fieldset>
+                        <legend>Process Log</legend>
+                        <input type="hidden" name="type" value="PROCESS_LOG_REQ">
+                        <label for="id2">User identifier</label>
+                        <input type="text" id="id2" name="id" placeholder="User identifier" required>
+                        <label for="feed">Feed (between 0 & 100)</label>
+                        <input type="number" min="0" max="100" id="feed" name="feed" placeholder="Feed (between 0 and 100)" required>
+                        <label for="light">Light (between 0 & 100)</label>
+                        <input type="number" min="0" max="100" id="light" name="light" placeholder="Light (between 0 and 100)" required>
+                        <label for="duck">Duck (between 0 & 100)</label>
+                        <input type="number" min="0" max="100" id="duck" name="duck" placeholder="Duck (between 0 and 100)" required>
+                        <input type="submit" value="Send process log PDU">
+                    </fieldset>
+                </form>
+
+                <!-- Type 3: In-App purchases PDU -->
+                <form action="http://localhost:3000/Tamagotchi" method="get">
+                    <fieldset>
+                        <legend>In-App purchases</legend>
+                        <input type="hidden" name="type" value="PURCHASE_REQ">
+                        <label for="id3">User identifier</label>
+                        <input type="text" id="id3" name="id" placeholder="User identifier" required>
+                        <label for="item">Item to buy</label>
+                        <input type="text" id="item" name="item" placeholder="Item to buy" required>
+                        <input type="submit" value="Send In-App purchases PDU">
+                    </fieldset>
+                </form>
+
+                <!-- Type 4: User Registration PDU -->
+                <form action="http://localhost:3000/Tamagotchi" method="get">
+                    <fieldset>
+                        <legend>User registration</legend>
+                        <input type="hidden" name="type" value="ID_REC">
+                        <label for="id4">User identifier</label>
+                        <input type="text" id="id2" name="id" placeholder="User identifier" required>
+                        <label for="pass2">User password</label>
+                        <input type="text" id="pass2" name="pass" placeholder="User password" required>
+                        <input type="submit" value="Send Identifier Registration PDU">
+                    </fieldset>
+                </form>
+
+                <!-- Type 5: Item creation PDU -->
+                <form action="http://localhost:3000/Tamagotchi" method="get">
+                    <fieldset>
+                        <legend>Item creation</legend>
+                        <input type="hidden" name="type" value="ITEM_REC">
+                        <label for="item2">Item to record</label>
+                        <input type="text" id="item2" name="item" placeholder="Item to record" required>
+                        <input type="submit" value="Send item record PDU">
+                    </fieldset>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>

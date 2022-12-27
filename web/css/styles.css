@@ -1,0 +1,110 @@
+:root{
+    --orange: rgb(255, 170, 11);
+    --gainsbor: rgb(220, 220, 220);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--gainsbor);
+    text-align: center;
+    background-color: rgb(107, 107, 107);
+}
+
+header {
+    margin: 2em;
+}
+
+header > h1 {
+    font-family: 'Press Start 2P', cursive;
+    color: var(--orange);
+    font-size: 3em;
+    text-shadow: 2px 2px 4px black;
+}
+
+header > p {
+    margin-top: 1em;
+}
+
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+main > div {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+main > div > form {
+    width: 300px;
+    margin: 1em;
+    padding: 1em;
+    border:  var(--orange) 1px solid;
+}
+
+main > div > form > fieldset {
+    border: none;
+}
+
+main > div > form > fieldset > legend {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    color: var(--gainsbor);
+    margin: 10px 0;
+}
+
+main > div > form > fieldset > label {
+    display: none;
+}
+
+main > div > form > fieldset > input::placeholder {
+    color: var(--gainsbor)
+}
+
+main > div > form > fieldset > input[type=text],
+main > div > form > fieldset > input[type=number] {
+    width: 100%;
+    display: block;
+    border: 2px solid var(--gainsbor);
+    border-radius: 3px;
+    margin: 0.5em auto;
+    padding: 5px;
+    height: 2.5em;
+    text-align: left;
+}
+
+main > div > form > fieldset > input[type=submit] {
+    width: 80%;
+    display: block;
+    margin: 3em auto;
+    color:  black;
+    font-weight: bold;
+    margin-top: 3em;
+    padding: 1em;
+    border: none;
+    background-color: var(--orange);
+    border-radius: 3px;
+    box-shadow: 2px 2px 1px black;
+}
+
+
+@media screen and (max-width: 1115px) {
+    main > div {
+        justify-content: center;
+    }
+
+    header > h1 {
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    header > h1 {
+        font-size: 1.5em;
+    }
+}
