@@ -3,20 +3,21 @@ Web server that listens for HTTP requests and uses a
 MySQL database to handle requests and responses
 
 Author: Vicen-te
-Date: 27-12-2022
+date: MM-DD-YYYY
+Creation date: 12-27-2022
+Modification date: 09-05-2022
 
-Web-Service: http://localhost:3000/
-Database service HostName&Port: localhost:3306
+Web-Service: http://localhost:8000/
+Database service HostName&Port: localhost:3307
 """
 
 # Import modules (other files) and standard modules (libraries of python)
 from http.server import HTTPServer
 from html_server import Server, database
 
-
 # Define constants: hostName and port
 DB_SERVER_ADDRESS = "localhost"
-DB_PORT = 3000
+DB_PORT = 8000
 
 
 # Start the database

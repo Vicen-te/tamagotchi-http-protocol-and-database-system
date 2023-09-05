@@ -2,6 +2,7 @@
 from time import asctime
 import sys
 import json
+# Docu: https://docs.python.org/3/library/json.html
 import requests
 from socket import gethostbyname, gethostname
 
@@ -12,44 +13,47 @@ from socket import gethostbyname, gethostname
 # Log File
 LOG = "log.txt"
 
+# IP Geolocation API
+# You can create one on app.abstractapi.com
+# Or comment this part and remove the ip_address from text
+GEOLOCATION_KEY = ''
 
-# Save info to the log file
-def save_info_log(data, reply, code):
+
+def ip_geolocation():
+    # URL to send the request to
+    request_url = 'https://ipgeolocation.abstractapi.com/v1/?api_key=' + GEOLOCATION_KEY
+    response = requests.get(request_url)
+    result = json.loads(response.content)
+    ip_address = result['ip_address']
+    # Api requests are limited to 1 per second
+    # time.sleep(1)
+    return ip_address
+
+
+# Get the log info
+def get_log(data, reply, code):
     # Create a new tuple
     new_tuple = (data, reply)
 
-    # IP Geolocation API
-    # You can create one on app.abstractapi.com
-    # Or comment this part and remove the ip_address from text
-    GEOLOCATION_KEY = ''
-
+    # Date, hour, html code, message
     try:
-        # URL to send the request to
-        request_url = 'https://ipgeolocation.abstractapi.com/v1/?api_key=' + GEOLOCATION_KEY
-        response = requests.get(request_url)
-        result = json.loads(response.content)
-        ip_address = result['ip_address']
-        # Api requests are limited to 1 per second
-        # time.sleep(1)
-
-        # Date, hour, ip_address, html code and message
+        ip_address = ip_geolocation()
+        # And ip_address
         text = f"Time: {asctime()}\nIp_address:{ip_address}\nHTMLCode:{code}\nMessage: \n{getjson(new_tuple)}\n\n"
 
     except Exception:
         print(f"Exception: {str(sys.exc_info())}")
         print("GEOLOCATION_KEY not added")
 
-        # Date, hour, hostname, html code and message
+        # And hostname
         text = f"Time: {asctime()}\nHost_ip:{gethostbyname(gethostname())}\nHTMLCode:{code}\nMessage: \n{getjson(new_tuple)}\n\n"
+    return text
 
-    save_log(text)
 
-
-# Save data in a txt file name log
-def save_log(jsonformat):
+# Write the log in a txt file name log.txt
+def write_log(text):
     file = open(LOG, "a")
-    file.write(jsonformat)
-    file.write("\n")
+    file.write(f"{text}\n")
     file.close()
 
 

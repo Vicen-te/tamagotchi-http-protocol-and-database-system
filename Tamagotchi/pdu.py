@@ -1,7 +1,11 @@
 from database import Database
+import os
+
+# Get Project Name (The name of your folder, you can also change it to a custom name like "Tamagotchi".)
+Project_name = os.path.basename(os.getcwd())
 
 # Create the database with tables and correspondent columns
-database = Database()
+database = Database(Project_name)
 
 # Create two dict types, these can be converted to a JSON
 data = {}
@@ -29,12 +33,12 @@ The structure that the JSON will have will be:
 
 def create_id(identifier, password, register=False):
     global data
-    type = "ID_REQ"
+    id_type = "ID_REQ"
     if register:
-        type = "ID_REC"
+        id_type = "ID_REC"
 
     data = {
-        "type": type,
+        "type": id_type,
         "id": identifier,
         "pass": password
     }
@@ -47,11 +51,11 @@ def rec_id(identifier, password):
 
     check = False
     if database.connect_server(True):
-        sql_select_Query = "select * from `users`"
-        database.cursor.execute(sql_select_Query)
+        sql_select_query = "select * from `users`"
+        database.cursor.execute(sql_select_query)
         records = database.cursor.fetchall()
-        for (id, password) in records:
-            if id == identifier:
+        for (ident, password) in records:
+            if ident == identifier:
                 check = True
                 break
 
@@ -73,8 +77,8 @@ def id_req(identifier, password):
         query = (f"SELECT * FROM `users`"
                  "WHERE id = %s AND pass = %s")
         database.cursor.execute(query, (identifier, password))
-        for (id, passw) in database.cursor:
-            if id == identifier and passw == password:
+        for (ident, passw) in database.cursor:
+            if ident == identifier and passw == password:
                 check = True
                 break
         database.close_server()
@@ -113,8 +117,8 @@ def rec_process_log(identifier):
     database.cursor.execute(query, (identifier,))
 
     check = False
-    for (id, feed, light, duck) in database.cursor:
-        if id == identifier:
+    for (ident, feed, light, duck) in database.cursor:
+        if ident == identifier:
             check = True
             break
 
@@ -140,8 +144,8 @@ def process_log_req(identifier, feed, light, duck):
         query = "SELECT * FROM `users` WHERE id = %s"
         database.cursor.execute(query, (identifier,))
 
-        for (id, passw) in database.cursor:
-            if id == identifier:
+        for (ident, passw) in database.cursor:
+            if ident == identifier:
                 check = True
                 rec_process_log(identifier)
                 break
@@ -189,8 +193,8 @@ def rec_purchase(identifier, item):
     database.cursor.execute(query)
     check_has_item = False
 
-    for (id, i, number) in database.cursor:
-        if i == item and id == identifier:
+    for (ident, i, number) in database.cursor:
+        if i == item and ident == identifier:
             check_has_item = True
 
     if check_has_item:
@@ -221,9 +225,9 @@ def purchase_req(identifier, item):
         query = "SELECT * FROM `users` WHERE id = %s"
         database.cursor.execute(query, (identifier,))
 
-        for (id, passw) in database.cursor:
-            if id == identifier:
-                check = rec_purchase(id, item)
+        for (ident, passw) in database.cursor:
+            if ident == identifier:
+                check = rec_purchase(ident, item)
                 break
 
         database.close_server()

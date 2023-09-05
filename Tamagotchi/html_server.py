@@ -2,9 +2,10 @@
 import sys
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs, urlparse
+# Docu: https://docs.python.org/3/library/urllib.parse.html
 
 # Import modules (other files)
-from log_info import save_info_log, getjson, show_log
+from log_info import get_log, getjson, write_log  # , show_log
 from pdu import *
 
 # 500 – Internal Server Error
@@ -49,14 +50,14 @@ class Server(BaseHTTPRequestHandler):
                 raise KeyError("No parameters defined")
 
             # Generate responses
-            PDU_type = parameters["type"]
-            print("Type: " + PDU_type[0])
+            pdu_type = parameters["type"]
+            print("Type: " + pdu_type[0])
 
             # Print parameters by console treating it as a JSON
             print(f"Received parameters: {getjson(parameters)}")
 
             # The type will be parsed to generate the corresponding response
-            match PDU_type[0]:
+            match pdu_type[0]:
                 # Pdu to compare an id with the values in the database
                 case "ID_REQ":
                     if id_req(parameters['id'][0], parameters['pass'][0]):
@@ -125,7 +126,8 @@ class Server(BaseHTTPRequestHandler):
 
             if not favicon_or_api:
                 # Save the information in the log
-                save_info_log(get_data(), get_reply(), HTMLcode)
+                text = get_log(get_data(), get_reply(), HTMLcode)
+                write_log(text)
 
             # We print the result of the operation
             # show_log()
